@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Application | Career Opportunities Online</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { corp: { blue: '#0056b3', bg: '#f4f6f8', dark: '#1a1a1a' } },
+                    fontFamily: { sans: ['Arial', 'Helvetica', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-corp-bg font-sans text-corp-dark antialiased">
+
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-corp-blue tracking-tight">Career Opportunities Online</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="jobs.html" class="text-sm font-semibold text-gray-500 hover:text-corp-blue">← Back to Jobs</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-3xl mx-auto px-4 py-8">
+        
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+            <div class="bg-gray-50 px-8 py-6 border-b border-gray-200">
+                <h1 class="text-2xl font-bold text-gray-900">Application Form</h1>
+                <p class="text-sm text-gray-600 mt-1">Please complete the skill assessment below. Generic applications are automatically rejected.</p>
+            </div>
+
+            <div class="p-8" x-data="applicationForm">
+                
+                <form action="thank-you.html" name="application" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    
+                    <input type="hidden" name="form-name" value="application">
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Which role are you applying for?</label>
+                        <select x-model="selectedRole" name="role_applied" class="w-full border-gray-300 border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                            <optgroup label="Supply Chain & Ops">
+                                <option value="sourcing">Sourcing Specialist (Procurement)</option>
+                                <option value="logistics">Logistics Coordinator (Import/Export)</option>
+                                <option value="design">Digital Imaging Specialist (Vector Art)</option>
+                            </optgroup>
+                            <optgroup label="Sales & Support">
+                                <option value="voice">Customer Engagement Specialist (Voice)</option>
+                                <option value="chat">Digital Support Associate (Chat Only)</option>
+                                <option value="sales_outbound">Inside Sales Rep (Outbound)</option>
+                            </optgroup>
+                            <optgroup label="Admin & Data">
+                                <option value="data">Sales Data Specialist (Lead Gen)</option>
+                                <option value="admin_sales">Sales Support Admin (Order Entry)</option>
+                                <option value="billing">Billing & Invoicing Coordinator</option>
+                                <option value="exec_admin">Executive Operations Assistant (Part-Time)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">When can you start?</label>
+                        <div class="relative">
+                            <select name="start_date" required class="w-full border-gray-300 border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none appearance-none bg-white">
+                                <option value="" disabled selected>Select availability...</option>
+                                <option value="Immediately">Immediately (Within 48 hours)</option>
+                                <option value="1 Week">1 Week Notice</option>
+                                <option value="2 Weeks">2 Weeks Notice</option>
+                                <option value="30 Days">30 Days (Rendering Resignation)</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Full Legal Name</label>
+                            <input type="text" name="full_name" required class="w-full border-gray-300 border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="First and Last Name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                            <input type="email" name="email" required class="w-full border-gray-300 border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none" placeholder="you@example.com">
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded border border-blue-100 transition-all duration-300">
+                        <h3 class="font-bold text-corp-blue mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            Required Skill Assessment
+                        </h3>
+                        
+                        <label class="block text-sm font-bold text-gray-800 mb-2" x-text="questions[selectedRole]"></label>
+                        
+                        <textarea name="skill_test_answer" required rows="5" class="w-full border-gray-300 border p-3 rounded focus:ring-2 focus:ring-blue-500 outline-none font-medium" placeholder="Type your answer here..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Upload Resume (PDF)</label>
+                        <input type="file" name="resume" accept=".pdf" required class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-corp-blue hover:file:bg-blue-100 cursor-pointer">
+                    </div>
+
+                    <div class="space-y-3 pt-4 border-t border-gray-100">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" required class="h-4 w-4 text-corp-blue focus:ring-blue-500 border-gray-300 rounded">
+                            <span class="text-sm text-gray-700">I confirm I have a wired Fiber Internet connection (No Pocket WiFi).</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" required class="h-4 w-4 text-corp-blue focus:ring-blue-500 border-gray-300 rounded">
+                            <span class="text-sm text-gray-700">I agree to the <a href="terms.html" target="_blank" class="underline text-corp-blue">Terms</a> and <a href="privacy.html" target="_blank" class="underline text-corp-blue">Privacy Policy</a>.</span>
+                        </label>
+                    </div>
+
+                    <div x-data="{ submitting: false }">
+                        <button 
+                            type="submit" 
+                            @click="submitting = true"
+                            class="w-full bg-corp-blue text-white font-bold py-4 rounded hover:bg-blue-800 transition duration-200 shadow-md flex justify-center items-center"
+                        >
+                            <span x-show="!submitting">Submit Application</span>
+                            <span x-show="submitting" class="animate-spin ml-2">⏳</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center text-xs text-gray-400 space-x-4">
+            <span>&copy; 2025 Career Opportunities Online.</span>
+            <a href="terms.html" class="hover:underline">Terms & Conditions</a>
+            <a href="privacy.html" class="hover:underline">Privacy Policy</a>
+        </div>
+        
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('applicationForm', () => ({
+                selectedRole: 'sourcing',
+                
+                // THE TRAP QUESTIONS DATABASE
+                questions: {
+                    'sourcing': 'Scenario: A key vendor quotes $5.50/unit. You know the market rate is $4.00. Write the exact email you would send to negotiate them down.',
+                    'logistics': 'Scenario: Commercial Invoice says 100 units ($5000), but Packing List says 110 units. Shipment is at port. What is your step-by-step process?',
+                    'design': 'Scenario: A client sends a pixelated screenshot of a logo for a T-shirt print. Explain your workflow in Adobe Illustrator to fix this.',
+                    'data': 'Scenario: I need a list of 50 Marketing Directors in Austin, TX. Which specific tools and filters do you use to build this list?',
+                    'admin_sales': 'Scenario: You are entering a PO. Client ordered Royal Blue, vendor only lists Navy and Cobalt. What do you do?',
+                    'billing': 'Scenario: A VIP client is 15 days late on payment. Write a polite but firm email reminding them to pay.',
+                    'voice': 'Scenario: A customer calls screaming about a delivery error (not our fault). Write exactly what you say in the first 30 seconds.',
+                    'chat': 'Scenario: Customer asks \'Where is my order?\'. It is delayed by 3 days. Write a chat response that delivers bad news but keeps them happy.',
+                    'sales_outbound': 'Scenario: Cold call. CEO says \'I am busy, send an email.\' What is your one-sentence rebuttal?',
+                    'exec_admin': 'Scenario: Founder is in a meeting. You get an urgent VIP client email and a team Slack request. What is your 15-minute action plan?'
+                }
+            }))
+        })
+    </script>
+
+</body>
+</html>

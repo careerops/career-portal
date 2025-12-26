@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Positions | Career Opportunities Online</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { corp: { blue: '#0056b3', bg: '#f4f6f8', dark: '#1a1a1a' } },
+                    fontFamily: { sans: ['Arial', 'Helvetica', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-corp-bg font-sans text-corp-dark antialiased">
+
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-corp-blue tracking-tight">Career Opportunities Online</span>
+                </div>
+                <div class="flex items-center">
+                    <a href="index.html" class="text-sm text-gray-500 hover:text-corp-blue font-medium">← Change Location</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="jobBoard">
+        
+        <div class="mb-8 border-b border-gray-200 pb-6">
+            <h1 class="text-3xl font-bold text-gray-900">Current Openings</h1>
+            <p class="text-gray-600 mt-2">
+                Showing roles available for: 
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-blue-100 text-corp-blue">
+                    <span x-text="userLoc"></span>
+                    <span x-show="userLoc !== userNat" class="ml-1 text-gray-500 font-normal" x-text="'(' + userNat + ' National)'"></span>
+                </span>
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <div class="md:col-span-1">
+                <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm sticky top-6">
+                    <h3 class="font-bold text-xs uppercase text-gray-400 mb-4 tracking-wider">Filter By Role</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="All" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">All Jobs</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="Supply Chain" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">Supply Chain</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="Support" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">Customer Support</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="Sales" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">Sales / Outbound</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="Admin" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">Admin / Operations</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-gray-50 p-2 rounded -ml-2 transition">
+                            <input type="radio" name="filter" value="Back Office" x-model="filterType" class="text-corp-blue focus:ring-corp-blue h-4 w-4">
+                            <span class="text-sm font-medium text-gray-700">Back Office</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-3 space-y-5">
+                
+                <template x-for="job in filteredJobs" :key="job.id">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 hover:border-corp-blue hover:shadow-lg transition duration-200 relative group">
+                        
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-corp-blue group-hover:underline cursor-pointer">
+                                    <a href="apply.html" x-text="job.title"></a>
+                                </h2>
+                                <p class="text-sm text-gray-500 font-medium mt-1">Client: <span class="text-gray-900 font-bold">Confidential US/Global Firm</span></p>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <a href="apply.html" class="inline-block bg-corp-blue text-white text-sm font-bold px-6 py-2 rounded-md hover:bg-blue-700 shadow-sm transition">
+                                    Apply Now
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm bg-gray-50 p-4 rounded-md border border-gray-100">
+                            <div>
+                                <span class="block text-xs text-gray-400 uppercase font-bold">Language</span>
+                                <span class="font-semibold text-gray-800" x-text="getDetails(job).language"></span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-400 uppercase font-bold">Schedule</span>
+                                <span class="font-semibold text-gray-800" x-text="getDetails(job).schedule"></span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-400 uppercase font-bold">Compensation (Weekly)</span>
+                                <span class="font-bold text-green-700" x-text="getDetails(job).salary"></span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-400 uppercase font-bold">Requirements</span>
+                                <span class="text-gray-600" x-text="getDetails(job).reqs"></span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 text-xs text-gray-400 flex justify-between items-center">
+                            <span>Posted 24h ago</span>
+                            <span class="bg-gray-100 px-2 py-1 rounded text-gray-500 font-medium" x-text="job.type"></span>
+                        </div>
+                    </div>
+                </template>
+
+                <div x-show="filteredJobs.length === 0" class="text-center py-12 bg-white rounded-lg border border-gray-200 border-dashed">
+                    <p class="mt-2 text-gray-500 font-medium">No roles available for this category in your region.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('jobBoard', () => ({
+                userLoc: '',
+                userNat: '',
+                filterType: 'All',
+                
+                // Note: removed static 'lang' property, it is now calculated dynamically
+                jobs: [
+                    // --- SUPPLY CHAIN (PH Focused) ---
+                    { id: 1, title: 'Sourcing Specialist (Procurement)', type: 'Full-time', category: 'Supply Chain', tier: 'supply_chain_ph' },
+                    { id: 2, title: 'Logistics Coordinator (Import/Export)', type: 'Full-time', category: 'Supply Chain', tier: 'supply_chain_ph' },
+
+                    // --- PROMO / US OPS (Global) ---
+                    { id: 3, title: 'Digital Imaging Specialist (Vector Art)', type: 'Full-time', category: 'Back Office', tier: 'global_ops' },
+                    { id: 4, title: 'Sales Data Specialist (Lead Gen)', type: 'Full-time', category: 'Back Office', tier: 'global_ops' },
+                    { id: 5, title: 'Sales Support Admin (Order Entry)', type: 'Full-time', category: 'Admin', tier: 'global_ops' },
+                    { id: 6, title: 'Billing & Invoicing Coordinator', type: 'Full-time', category: 'Admin', tier: 'global_ops' },
+
+                    // --- GENERAL BPO (Voice/Chat) ---
+                    { id: 7, title: 'Customer Engagement Specialist (Voice)', type: 'Full-time', category: 'Support', tier: 'global_voice' },
+                    { id: 8, title: 'Digital Support Associate (Chat Only)', type: 'Full-time', category: 'Support', tier: 'global_ops' },
+                    { id: 9, title: 'Inside Sales Rep (Outbound)', type: 'Full-time', category: 'Sales', tier: 'global_voice' },
+
+                    // --- INTERNAL EXEC ADMIN ---
+                    { id: 10, title: 'Executive Operations Assistant', type: 'Part-time', category: 'Admin', tier: 'exec_admin' }
+                ],
+
+                init() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    this.userLoc = urlParams.get('loc') || 'Global';
+                    this.userNat = urlParams.get('nat') || 'Global';
+                },
+
+                isJobVisible(job) {
+                    if (job.tier === 'supply_chain_ph') {
+                        return this.userLoc === 'Philippines';
+                    }
+                    return true;
+                },
+
+                getDetails(job) {
+                    let salary = '';
+                    let schedule = '';
+                    let reqs = 'Stable Internet Required';
+                    let language = 'Fluent English'; // DEFAULT
+
+                    // --- LANGUAGE LOGIC ---
+                    if (['Colombia', 'Venezuela', 'Dominican Republic'].includes(this.userLoc)) {
+                        language = 'Fluent English / Spanish';
+                    } else if (this.userLoc === 'Haiti' || this.userNat === 'Haiti') {
+                        language = 'Fluent English / French';
+                    }
+
+                    // --- SALARY/SCHEDULE LOGIC ---
+                    // 1. SUPPLY CHAIN (PH / Dubai Alignment)
+                    if (job.tier === 'supply_chain_ph') {
+                        salary = '$150 - $185 USD / Week + Bonuses'; 
+                        schedule = '12:00 PM - 9:00 PM PHT'; 
+                        reqs = 'Fiber Internet • 3+ Yrs Exp';
+                    }
+                    
+                    // 2. EXECUTIVE ADMIN (Fixed Morning Shift)
+                    else if (job.tier === 'exec_admin') {
+                        salary = '$105 - $125 USD / Week (Fixed)'; 
+                        schedule = '8:00 AM - 2:00 PM EST'; 
+                        reqs = 'Expert Google Workspace • Proactive';
+                    }
+
+                    // 3. VOICE ROLES
+                    else if (job.tier === 'global_voice') {
+                        schedule = '9:00 AM - 5:00 PM EST';
+                        if (this.userNat === 'Haiti') {
+                            salary = '$140 - $160 USD / Week + Bonuses'; 
+                            reqs = 'Neutral Accent • Noise Canceling Headset';
+                        } else {
+                            salary = '$125 - $150 USD / Week + Bonuses'; 
+                            reqs = 'Neutral Accent • Noise Canceling Headset';
+                        }
+                    }
+
+                    // 4. GENERAL OPS
+                    else {
+                        schedule = '9:00 AM - 5:00 PM EST';
+                        salary = '$115 - $140 USD / Week + Bonuses'; 
+                        if (this.userLoc === 'Dominican Republic') {
+                            reqs = 'Valid ID / Work Permit Required';
+                        }
+                    }
+
+                    return { salary, schedule, reqs, language };
+                },
+                
+                get filteredJobs() {
+                    let visible = this.jobs.filter(job => this.isJobVisible(job));
+                    if (this.filterType === 'All') return visible;
+                    return visible.filter(job => job.category === this.filterType);
+                }
+            }))
+        })
+    </script>
+
+</body>
+</html>

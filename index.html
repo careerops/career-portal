@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Opportunities Online | Global Recruitment</title>
+    
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        corp: { 
+                            blue: '#0056b3',  /* Standard Trust Blue */
+                            bg: '#f4f6f8',    /* Light Gray Background */
+                            dark: '#1a1a1a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Arial', 'Helvetica', 'sans-serif'], /* Boring Standard Fonts */
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-corp-bg font-sans text-corp-dark antialiased">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        
+        <div class="w-full max-w-md mb-8 text-center">
+            <h1 class="text-3xl font-bold mb-2 tracking-tight text-corp-blue">Career Opportunities Online</h1>
+            <p class="text-gray-500 text-sm uppercase tracking-wide">Global Talent • Remote Solutions</p>
+        </div>
+
+        <div 
+            x-data="{ 
+                residence: '', 
+                nationality: '',
+                isLoading: false,
+                countries: [
+                    { name: 'United States', flag: '🇺🇸' },
+                    { name: 'Dominican Republic', flag: '🇩🇴' },
+                    { name: 'Colombia', flag: '🇨🇴' }, 
+                    { name: 'Venezuela', flag: '🇻🇪' },
+                    { name: 'Philippines', flag: '🇵🇭' },
+                    { name: 'India', flag: '🇮🇳' },
+                    { name: 'Haiti', flag: '🇭🇹' }
+                ],
+                submit() {
+                    if(!this.residence || !this.nationality) return;
+                    this.isLoading = true;
+                    
+                    // Simulate system routing check (800ms delay)
+                    setTimeout(() => {
+                        const params = new URLSearchParams({
+                            loc: this.residence,
+                            nat: this.nationality
+                        }).toString();
+                        
+                        // Redirect to the Jobs Board
+                        window.location.href = 'jobs.html?' + params; 
+                    }, 800);
+                }
+            }"
+            class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md border border-gray-200"
+        >
+            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+                Search Available Positions
+            </h2>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Where do you currently reside?</label>
+                <div class="relative">
+                    <select x-model="residence" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
+                        <option value="" disabled selected>Select Country...</option>
+                        <template x-for="c in countries">
+                            <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                        </template>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">What is your Nationality?</label>
+                <div class="relative">
+                    <select x-model="nationality" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
+                        <option value="" disabled selected>Select Nationality...</option>
+                        <template x-for="c in countries">
+                            <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                        </template>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <button 
+                @click="submit()"
+                :disabled="!residence || !nationality"
+                :class="(!residence || !nationality) ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'bg-corp-blue hover:bg-blue-700 shadow-md'"
+                class="w-full text-white font-bold py-3 rounded transition duration-200 flex justify-center items-center"
+            >
+                <span x-show="!isLoading">Get Started</span>
+                
+                <span x-show="isLoading" class="animate-spin ml-2">
+                    <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </span>
+            </button>
+            
+            <div class="mt-6 flex items-center justify-center space-x-2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <span class="text-xs">Secure Recruitment Portal</span>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center text-xs text-gray-400">
+            <p>&copy; 2025 Career Opportunities Online. All Rights Reserved.</p>
+        </div>
+
+    </div>
+</body>
+</html>
