@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Positions | Career Opportunities Online</title>
     
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
@@ -29,7 +30,7 @@
                     <span class="font-bold text-xl text-corp-blue tracking-tight">Career Opportunities Online</span>
                 </div>
                 <div class="flex items-center">
-                    <a href="index.html" class="text-sm text-gray-500 hover:text-corp-blue font-medium">← Change Location</a>
+                    <a href="/" class="text-sm text-gray-500 hover:text-corp-blue font-medium">← Change Location</a>
                 </div>
             </div>
         </div>
@@ -90,12 +91,12 @@
                         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                             <div>
                                 <h2 class="text-xl font-bold text-corp-blue group-hover:underline cursor-pointer">
-                                    <a href="apply.html" x-text="job.title"></a>
+                                    <a href="/apply" x-text="job.title"></a>
                                 </h2>
                                 <p class="text-sm text-gray-500 font-medium mt-1">Client: <span class="text-gray-900 font-bold">Confidential US/Global Firm</span></p>
                             </div>
                             <div class="mt-4 md:mt-0">
-                                <a href="apply.html" class="inline-block bg-corp-blue text-white text-sm font-bold px-6 py-2 rounded-md hover:bg-blue-700 shadow-sm transition">
+                                <a href="/apply" class="inline-block bg-corp-blue text-white text-sm font-bold px-6 py-2 rounded-md hover:bg-blue-700 shadow-sm transition">
                                     Apply Now
                                 </a>
                             </div>
@@ -142,7 +143,6 @@
                 userNat: '',
                 filterType: 'All',
                 
-                // Note: removed static 'lang' property, it is now calculated dynamically
                 jobs: [
                     // --- SUPPLY CHAIN (PH Focused) ---
                     { id: 1, title: 'Sourcing Specialist (Procurement)', type: 'Full-time', category: 'Supply Chain', tier: 'supply_chain_ph' },
@@ -180,7 +180,7 @@
                     let salary = '';
                     let schedule = '';
                     let reqs = 'Stable Internet Required';
-                    let language = 'Fluent English'; // DEFAULT
+                    let language = 'Fluent English'; 
 
                     // --- LANGUAGE LOGIC ---
                     if (['Colombia', 'Venezuela', 'Dominican Republic'].includes(this.userLoc)) {
@@ -190,21 +190,16 @@
                     }
 
                     // --- SALARY/SCHEDULE LOGIC ---
-                    // 1. SUPPLY CHAIN (PH / Dubai Alignment)
                     if (job.tier === 'supply_chain_ph') {
                         salary = '$150 - $185 USD / Week + Bonuses'; 
                         schedule = '12:00 PM - 9:00 PM PHT'; 
                         reqs = 'Fiber Internet • 3+ Yrs Exp';
                     }
-                    
-                    // 2. EXECUTIVE ADMIN (Fixed Morning Shift)
                     else if (job.tier === 'exec_admin') {
                         salary = '$105 - $125 USD / Week (Fixed)'; 
                         schedule = '8:00 AM - 2:00 PM EST'; 
                         reqs = 'Expert Google Workspace • Proactive';
                     }
-
-                    // 3. VOICE ROLES
                     else if (job.tier === 'global_voice') {
                         schedule = '9:00 AM - 5:00 PM EST';
                         if (this.userNat === 'Haiti') {
@@ -215,8 +210,6 @@
                             reqs = 'Neutral Accent • Noise Canceling Headset';
                         }
                     }
-
-                    // 4. GENERAL OPS
                     else {
                         schedule = '9:00 AM - 5:00 PM EST';
                         salary = '$115 - $140 USD / Week + Bonuses'; 
