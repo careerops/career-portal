@@ -17,8 +17,8 @@
                 extend: {
                     colors: {
                         corp: { 
-                            blue: '#0056b3',  /* Standard Trust Blue */
-                            bg: '#f4f6f8',    /* Light Gray Background */
+                            blue: '#0056b3',  
+                            bg: '#f4f6f8',    
                             dark: '#1a1a1a'
                         }
                     },
@@ -64,8 +64,8 @@
                             nat: this.nationality
                         }).toString();
                         
-                        // FIXED: Redirects to '/thank-you' to solve the 404 error
-                        window.location.href = '/thank-you?' + params; 
+                        // CORRECTED: Redirects to '/jobs' (without .html)
+                        window.location.href = '/jobs?' + params; 
                     }, 800);
                 }
             }"
