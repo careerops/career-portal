@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career Opportunities Online | Global Recruitment</title>
     
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -17,13 +17,13 @@
                 extend: {
                     colors: {
                         corp: { 
-                            blue: '#0056b3',  
-                            bg: '#f4f6f8',    
+                            blue: '#0056b3',  /* Standard Trust Blue */
+                            bg: '#f4f6f8',    /* Light Gray Background */
                             dark: '#1a1a1a'
                         }
                     },
                     fontFamily: {
-                        sans: ['Arial', 'Helvetica', 'sans-serif'],
+                        sans: ['Arial', 'Helvetica', 'sans-serif'], /* Boring Standard Fonts */
                     }
                 }
             }
@@ -53,8 +53,19 @@
                     { name: 'India', flag: '🇮🇳' },
                     { name: 'Haiti', flag: '🇭🇹' }
                 ],
+                
+                // Computed check: Is the user invalid?
+                get isRestricted() {
+                    return this.residence === 'Other' || this.nationality === 'Other';
+                },
+
+                // Computed check: Is the form ready?
+                get isValid() {
+                    return this.residence && this.nationality && !this.isRestricted;
+                },
+
                 submit() {
-                    if(!this.residence || !this.nationality) return;
+                    if(!this.isValid) return;
                     this.isLoading = true;
                     
                     // Simulate system routing check (800ms delay)
@@ -64,8 +75,8 @@
                             nat: this.nationality
                         }).toString();
                         
-                        // CORRECTED: Redirects to '/jobs' (without .html)
-                        window.location.href = '/jobs?' + params; 
+                        // Redirect to the Jobs Board
+                        window.location.href = 'jobs.html?' + params; 
                     }, 800);
                 }
             }"
@@ -76,13 +87,14 @@
             </h2>
 
             <div class="mb-4">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Where do you currently reside?</label>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Select Country of Residence</label>
                 <div class="relative">
                     <select x-model="residence" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
                         <option value="" disabled selected>Select Country...</option>
                         <template x-for="c in countries">
-                            <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                            <option :value="c.name" x-text="c.name"></option>
                         </template>
+                        <option value="Other" class="text-gray-500 font-bold">Other / Not Listed</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -91,13 +103,14 @@
             </div>
 
             <div class="mb-6">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">What is your Nationality?</label>
+                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Select Nationality</label>
                 <div class="relative">
                     <select x-model="nationality" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
                         <option value="" disabled selected>Select Nationality...</option>
                         <template x-for="c in countries">
-                            <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                            <option :value="c.name" x-text="c.name"></option>
                         </template>
+                        <option value="Other" class="text-gray-500 font-bold">Other / Not Listed</option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -105,10 +118,15 @@
                 </div>
             </div>
 
+            <div x-show="isRestricted" x-transition.opacity class="mb-6 p-3 bg-red-50 border border-red-200 rounded text-xs text-red-700 font-bold leading-relaxed">
+                <p>⚠️ Hiring Restricted: We are currently only recruiting in the US, Colombia, Dominican Republic, Venezuela, Haiti, India, and Philippines.</p>
+                <p class="mt-1 font-normal text-red-600">No vacancies available in other regions at this time.</p>
+            </div>
+
             <button 
                 @click="submit()"
-                :disabled="!residence || !nationality"
-                :class="(!residence || !nationality) ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'bg-corp-blue hover:bg-blue-700 shadow-md'"
+                :disabled="!isValid"
+                :class="!isValid ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'bg-corp-blue hover:bg-blue-700 shadow-md'"
                 class="w-full text-white font-bold py-3 rounded transition duration-200 flex justify-center items-center"
             >
                 <span x-show="!isLoading">Get Started</span>
@@ -131,6 +149,11 @@
 
         <div class="mt-8 text-center text-xs text-gray-400">
             <p>&copy; 2025 Career Opportunities Online. All Rights Reserved.</p>
+            <div class="mt-2 space-x-2">
+                <a href="terms.html" class="hover:underline hover:text-gray-500">Terms & Conditions</a>
+                <span>•</span>
+                <a href="privacy.html" class="hover:underline hover:text-gray-500">Privacy Policy</a>
+            </div>
         </div>
 
     </div>
