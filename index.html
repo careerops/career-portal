@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Opportunities Online | Global Recruitment</title>
+    <title>Career Opportunities Online | Global Staffing</title>
     
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
@@ -16,27 +17,34 @@
             theme: {
                 extend: {
                     colors: {
-                        corp: { 
-                            blue: '#0056b3',  /* Standard Trust Blue */
-                            bg: '#f4f6f8',    /* Light Gray Background */
-                            dark: '#1a1a1a'
-                        }
+                        slate: { 900: '#0f172a', 800: '#1e293b', 700: '#334155' },
+                        teal: { 400: '#2EC4B6', 500: '#25A99D' }
                     },
-                    fontFamily: {
-                        sans: ['Arial', 'Helvetica', 'sans-serif'], /* Boring Standard Fonts */
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
+    <style>
+        body { background-color: #0f172a; }
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
 </head>
-<body class="bg-corp-bg font-sans text-corp-dark antialiased">
+<body class="min-h-screen text-slate-300 flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
 
-    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#334155 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+    <div class="w-full max-w-md z-10 space-y-8">
         
-        <div class="w-full max-w-md mb-8 text-center">
-            <h1 class="text-3xl font-bold mb-2 tracking-tight text-corp-blue">Career Opportunities Online</h1>
-            <p class="text-gray-500 text-sm uppercase tracking-wide">Global Talent • Remote Solutions</p>
+        <div class="text-center">
+            <h1 class="text-white font-bold text-2xl tracking-tight mb-2 uppercase">Career Opportunities Online</h1>
+            <p class="text-slate-400 text-xs uppercase tracking-widest font-medium">
+                Global <span class="text-teal-400 font-bold">Operational Support</span> & Remote Staffing Network
+            </p>
         </div>
 
         <div 
@@ -51,109 +59,90 @@
                     { name: 'Venezuela', flag: '🇻🇪' },
                     { name: 'Philippines', flag: '🇵🇭' },
                     { name: 'India', flag: '🇮🇳' },
-                    { name: 'Haiti', flag: '🇭🇹' }
+                    { name: 'Haiti', flag: '🇭🇹' },
+                    { name: 'Other', flag: '🌍' }
                 ],
-                
-                // Computed check: Is the user invalid?
-                get isRestricted() {
+                // Logic: Block if 'Other' is selected or fields are empty
+                get isBlocked() {
+                    return !this.residence || !this.nationality || this.residence === 'Other' || this.nationality === 'Other';
+                },
+                get showWarning() {
                     return this.residence === 'Other' || this.nationality === 'Other';
                 },
-
-                // Computed check: Is the form ready?
-                get isValid() {
-                    return this.residence && this.nationality && !this.isRestricted;
-                },
-
                 submit() {
-                    if(!this.isValid) return;
+                    if(this.isBlocked) return;
                     this.isLoading = true;
-                    
-                    // Simulate system routing check (800ms delay)
                     setTimeout(() => {
                         const params = new URLSearchParams({
                             loc: this.residence,
                             nat: this.nationality
                         }).toString();
-                        
-                        // Redirect to the Jobs Board
                         window.location.href = 'jobs.html?' + params; 
                     }, 800);
                 }
             }"
-            class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md border border-gray-200"
+            class="glass rounded-sm p-8 shadow-2xl relative"
         >
-            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-teal-400 to-transparent opacity-75"></div>
+
+            <h2 class="text-lg font-semibold text-white mb-6 text-center tracking-tight">
                 Search Available Positions
             </h2>
 
-            <div class="mb-4">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Select Country of Residence</label>
-                <div class="relative">
-                    <select x-model="residence" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
-                        <option value="" disabled selected>Select Country...</option>
-                        <template x-for="c in countries">
-                            <option :value="c.name" x-text="c.name"></option>
-                        </template>
-                        <option value="Other" class="text-gray-500 font-bold">Other / Not Listed</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Where do you currently reside?</label>
+                    <div class="relative">
+                        <select x-model="residence" class="w-full border border-slate-700 bg-slate-900 text-white p-3 rounded-sm focus:border-teal-400 focus:ring-1 focus:ring-teal-400 outline-none appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select Country...</option>
+                            <template x-for="c in countries">
+                                <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                            </template>
+                        </select>
                     </div>
                 </div>
-            </div>
 
-            <div class="mb-6">
-                <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Select Nationality</label>
-                <div class="relative">
-                    <select x-model="nationality" class="w-full border-gray-300 border p-3 rounded bg-gray-50 text-gray-900 focus:ring-2 focus:ring-blue-500 outline-none appearance-none">
-                        <option value="" disabled selected>Select Nationality...</option>
-                        <template x-for="c in countries">
-                            <option :value="c.name" x-text="c.name"></option>
-                        </template>
-                        <option value="Other" class="text-gray-500 font-bold">Other / Not Listed</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">What is your Nationality?</label>
+                    <div class="relative">
+                        <select x-model="nationality" class="w-full border border-slate-700 bg-slate-900 text-white p-3 rounded-sm focus:border-teal-400 focus:ring-1 focus:ring-teal-400 outline-none appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select Nationality...</option>
+                            <template x-for="c in countries">
+                                <option :value="c.name" x-text="c.flag + ' ' + c.name"></option>
+                            </template>
+                        </select>
                     </div>
                 </div>
-            </div>
 
-            <div x-show="isRestricted" x-transition.opacity class="mb-6 p-3 bg-red-50 border border-red-200 rounded text-xs text-red-700 font-bold leading-relaxed">
-                <p>⚠️ Hiring Restricted: We are currently only recruiting in the US, Colombia, Dominican Republic, Venezuela, Haiti, India, and Philippines.</p>
-                <p class="mt-1 font-normal text-red-600">No vacancies available in other regions at this time.</p>
-            </div>
+                <div x-show="showWarning" x-transition class="p-3 bg-amber-500/10 border border-amber-500/50 rounded-sm">
+                    <p class="text-xs text-amber-200 text-center font-medium">
+                        ⚠ At this time we are only hiring for the listed regions. Please check back later.
+                    </p>
+                </div>
 
-            <button 
-                @click="submit()"
-                :disabled="!isValid"
-                :class="!isValid ? 'opacity-50 cursor-not-allowed bg-gray-400' : 'bg-corp-blue hover:bg-blue-700 shadow-md'"
-                class="w-full text-white font-bold py-3 rounded transition duration-200 flex justify-center items-center"
-            >
-                <span x-show="!isLoading">Get Started</span>
-                
-                <span x-show="isLoading" class="animate-spin ml-2">
-                    <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </span>
-            </button>
+                <button 
+                    @click="submit()"
+                    :disabled="isBlocked"
+                    :class="isBlocked ? 'opacity-50 cursor-not-allowed bg-slate-700 text-slate-500' : 'bg-teal-400 hover:bg-teal-500 text-slate-900 shadow-[0_0_15px_rgba(46,196,182,0.3)]'"
+                    class="w-full font-bold py-4 rounded-sm transition-all duration-300 flex justify-center items-center mt-8 uppercase tracking-wider text-xs"
+                >
+                    <span x-show="!isLoading">Get Started</span>
+                    <span x-show="isLoading" class="animate-spin ml-2">⏳</span>
+                </button>
+            </div>
             
-            <div class="mt-6 flex items-center justify-center space-x-2 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="mt-6 flex items-center justify-center space-x-2 text-slate-600 border-t border-slate-800 pt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
-                <span class="text-xs">Secure Recruitment Portal</span>
+                <span class="text-[10px] uppercase tracking-widest">Secure Recruitment Portal</span>
             </div>
         </div>
 
-        <div class="mt-8 text-center text-xs text-gray-400">
-            <p>&copy; 2025 Career Opportunities Online. All Rights Reserved.</p>
-            <div class="mt-2 space-x-2">
-                <a href="terms.html" class="hover:underline hover:text-gray-500">Terms & Conditions</a>
-                <span>•</span>
-                <a href="privacy.html" class="hover:underline hover:text-gray-500">Privacy Policy</a>
-            </div>
+        <div class="flex justify-center space-x-6 text-[10px] text-slate-500 uppercase tracking-wider">
+            <span>© 2026 Career Opportunities Online</span>
+            <a href="terms.html" class="hover:text-teal-400 transition-colors">Terms</a>
+            <a href="privacy.html" class="hover:text-teal-400 transition-colors">Privacy</a>
         </div>
 
     </div>
