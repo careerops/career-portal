@@ -4,56 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Career Opportunities Online</title>
-    
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { corp: { blue: '#0056b3', bg: '#f4f6f8', dark: '#1a1a1a' } },
-                    fontFamily: { sans: ['Arial', 'Helvetica', 'sans-serif'] }
+                    colors: {
+                        slate: { 900: '#0f172a', 800: '#1e293b', 700: '#334155' },
+                        teal: { 400: '#2EC4B6' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
+    <style>body { background-color: #0f172a; color: #cbd5e1; }</style>
 </head>
-<body class="bg-corp-bg font-sans text-corp-dark antialiased">
+<body class="font-sans antialiased">
 
-    <nav class="bg-white shadow-sm border-b border-gray-200">
+    <nav class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="font-bold text-xl text-corp-blue tracking-tight">Career Opportunities Online</span>
+                    <span class="font-bold text-lg text-white tracking-tight uppercase">Career Opportunities</span>
                 </div>
                 <div class="flex items-center">
-                    <a href="/" class="text-sm font-semibold text-gray-500 hover:text-corp-blue">Back to Home</a>
+                    <a href="index.html" class="text-xs font-bold text-teal-400 hover:text-white uppercase tracking-wider transition-colors">
+                        ← Back to Gateway
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="max-w-3xl mx-auto px-4 py-12">
-        <div class="bg-white shadow-lg rounded-lg p-8 border border-gray-200">
-            <h1 class="text-3xl font-bold text-gray-900 mb-6">Privacy Policy</h1>
+        <div class="bg-slate-800 rounded-sm p-8 border border-slate-700 shadow-xl">
+            <h1 class="text-2xl font-bold text-white mb-6 tracking-tight">Privacy Policy</h1>
             
-            <div class="prose text-gray-700 space-y-6">
-                <p>At <strong>Career Opportunities Online</strong>, we value transparency. We are a boutique recruitment network connecting global talent with specialized US and International opportunities.</p>
+            <div class="space-y-6 text-sm leading-relaxed text-slate-400">
+                <p>At <strong class="text-white">Career Opportunities Online</strong>, we value transparency. We are a boutique recruitment network connecting global talent with specialized US and International opportunities.</p>
 
-                <h3 class="text-xl font-bold text-corp-blue">1. How We Use Your Data</h3>
+                <h3 class="text-lg font-bold text-teal-400 mt-4">1. How We Use Your Data</h3>
                 <p>The information you submit (Resume, Contact Info, Skill Assessment) is used solely for recruitment purposes. We do not sell your data to third-party marketers or spam lists.</p>
 
-                <h3 class="text-xl font-bold text-corp-blue">2. Our Partner Network</h3>
+                <h3 class="text-lg font-bold text-teal-400 mt-4">2. Our Partner Network</h3>
                 <p>We operate as a network of hiring partners. By applying, you understand and agree that:</p>
-                <ul class="list-disc pl-5 space-y-2">
+                <ul class="list-disc pl-5 space-y-2 marker:text-teal-400">
                     <li>Your profile may be reviewed by multiple hiring managers within our partner ecosystem (Logistics, Promo, and Support firms).</li>
                     <li>If the specific role you applied for is filled, we may match your profile with a Partner Agency that has a similar opening.</li>
-                    <li><strong>Benefit to You:</strong> This significantly increases your chances of placement. If one client role is closed, another partner may review your profile and reach out to you directly via our network.</li>
+                    <li><strong class="text-white">Benefit to You:</strong> This significantly increases your chances of placement. If one client role is closed, another partner may review your profile and reach out to you directly via our network.</li>
                 </ul>
 
-                <h3 class="text-xl font-bold text-corp-blue">3. Data Retention & Future Contact</h3>
+                <h3 class="text-lg font-bold text-teal-400 mt-4">3. Data Retention & Future Contact</h3>
                 <p>We maintain a secure talent database. Business needs change rapidly; a role that is closed today might reopen next month with a new client. By applying, you agree that we may contact you via email or WhatsApp in the future regarding new opportunities that match your skill set.</p>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-slate-700 text-center">
+                <a href="index.html" class="text-xs text-slate-500 hover:text-white uppercase tracking-widest transition-colors">Return to Home</a>
             </div>
         </div>
     </div>
